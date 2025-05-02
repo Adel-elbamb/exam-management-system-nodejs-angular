@@ -1,5 +1,7 @@
 import connection from "../DB/connection.js"
 import AuthRouter from './module/auth/auth.router.js'
+import examRouter from './module/exam/exam.route.js'
+import questionRouter from './module/question/question.router.js'
 import { globalError } from "./utils/asyncHandler.js"
 import cors from 'cors'
 const boostrap = (app, express)=> {
@@ -8,6 +10,8 @@ const boostrap = (app, express)=> {
     connection()
 
     app.use('/auth' , AuthRouter) 
+    app.use('/api/exam' ,examRouter )
+    app.use('/api/exam' ,questionRouter )
 
     app.use('/{*eny}', (req, res, next) => {
         res.status(404).json({ 
