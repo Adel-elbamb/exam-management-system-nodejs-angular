@@ -1,7 +1,9 @@
 import examModel from "../../../../DB/models/Exam.model.js";
 import questionModel from "../../../../DB/models/Question.model.js";
+import resultModel from "../../../../DB/models/Result.model.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 
+//create exam 
 export const createExam = asyncHandler(async (req, res, next) => {
     // Extract data from request body
     const { title, description, questions } = req.body;
@@ -50,16 +52,7 @@ export const createExam = asyncHandler(async (req, res, next) => {
 
     // Return success response
     res.status(201).json({ message: "Exam created successfully", exam });
-});
-
-export const ViewExam = asyncHandler(
-    async(req, res ,next) => {
-        if(!req.user) {
-            return next(new Error("Please login before View  Exam ", { cause: 403 })); 
-        }
-    }
-)
-
+})
 
 // Update Exam
 export const updateExam = asyncHandler(async (req, res, next) => {
@@ -108,3 +101,86 @@ export const deleteExam = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({ message: "Exam and associated questions deleted successfully" });
 });
+
+// View Available Exams
+export const viewExams = asyncHandler(async (req, res, next) => {
+    // Check if user is authenticated
+    if (!req.user) {
+        return next(new Error("Authentication required", { cause: 401 }));
+    }
+
+    // Retrieve all exams with basic details (title, description)
+    const exams = await examModel.find().select('title description createdBy createdAt');
+    res.status(200).json({ message: "Exams retrieved successfully", exams });
+});
+
+
+//take your exam 
+export const takeExam = asyncHandler(async(req,res,next) => {
+    const {id} = req.params
+    if(! req.user &&  !req.user.role == 'User') {
+        return next(new Error("Student access required", { cause: 403 }));
+    }
+
+   const exam = await examModel.findById(id) 
+    if(!exam) {
+        return next(new Error (" invalid id of Exam ") , {cause:400})
+    }
+    res.status(200).json({message : "sucess" , exam})
+})
+
+
+
+//submit Exam and calculat the result of exam 
+// Submit Exam (Take Exam)
+export const submitExam = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const { answers } = req.body;
+
+    // Check if user is authenticated and is a student
+    if (!req.user || req.user.role !== 'User') {
+        return next(new Error("Student access required", { cause: 403 }));
+    }
+   console.log(req.user._id)
+    // Find the exam and populate questions
+    const exam = await examModel.findById(id).populate('questions');
+    if (!exam) {
+        return next(new Error("Exam not found", { cause: 404 }));
+    }
+
+    // Check if the student has already taken the exam
+    const existingResult = await resultModel.findOne({ user: req.user._id, exam: id });
+    if (existingResult) {
+        return next(new Error("You have already taken this exam", { cause: 400 }));
+    }
+
+    // Validate answers
+    if (!Array.isArray(answers) || answers.length !== exam.questions.length) {
+        return next(new Error("Invalid answers provided", { cause: 400 }));
+    }
+
+    // Calculate score
+    let score = 0;
+    exam.questions.forEach((question, index) => {
+        if (answers[index] !== undefined && question.options[answers[index]]?.isCorrect) {
+            score++;
+        }
+    });
+
+    // Save result
+    const result = await resultModel.create({
+        user: req.user._id,
+        exam: id,
+        answers,
+        score,
+        total: exam.questions.length
+    });
+
+    res.status(200).json({ message: "Exam submitted successfully", result: { score, total: exam.questions.length } });
+});
+
+
+
+
+
+
