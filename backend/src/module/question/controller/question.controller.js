@@ -7,11 +7,12 @@ import { asyncHandler } from "../../../utils/asyncHandler.js";
 export const addQuestion = asyncHandler(async (req, res, next) => {
     const { examId } = req.params;
     const { text, options } = req.body;
-
+    console.log(req.user.role)
     // Check if user is authenticated and is an admin
     if (!req.user || req.user.role !== 'Admin') {
         return next(new Error("Admin access required", { cause: 403 }));
     }
+ 
 
     // Find the exam
     const exam = await examModel.findById({_id : examId});

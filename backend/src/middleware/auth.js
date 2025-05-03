@@ -31,7 +31,7 @@ export const auth = asyncHandler((req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.SIGNTURE);
     req.user = decoded;
-    console.log(decoded)
+    // console.log(decoded)
     next();
   } catch (err) {
     return next(new Error("Invalid token"));

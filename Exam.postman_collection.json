@@ -1,0 +1,438 @@
+{
+	"info": {
+		"_postman_id": "e9ffebfd-4669-481c-8509-3f282c109476",
+		"name": "Exam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31069711"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "SignUP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"a@mple.com\",\r\n  \"firstName\": \"Tssst\",\r\n  \"lastName\": \"Usejjjjjsssssssssr\",\r\n  \"userName\":\"asassas\" ,\r\n  \"mobileNumber\": \"01034921017\",\r\n  \"password\": \"Test@1234\",\r\n  \"role\":\"Admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"a@mple.com\",\r\n     \"password\": \"Test@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exam",
+			"item": [
+				{
+					"name": "create the exam",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1MzY0YmQwMjFlM2U5YzA4Y2M1YmUiLCJlbWFpbCI6ImFAbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDYyMjA2NjgsImV4cCI6MTc0NjI1MzA2OH0.VkGac0f8rTBh3qWgbR6yAdGBtj6d76Uvd-qIr3VAWJU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Math Exam\",\r\n    \"description\": \"Basic algebra test\",\r\n    \"questions\": [\r\n        {\r\n            \"text\": \"What is 2 + 2?\",\r\n            \"options\": [\r\n                { \"text\": \"3\", \"isCorrect\": false },\r\n                { \"text\": \"4\", \"isCorrect\": true },\r\n                { \"text\": \"5\", \"isCorrect\": false },\r\n                { \"text\": \"6\", \"isCorrect\": false }\r\n            ]\r\n        } ,\r\n\r\n         {\r\n            \"text\": \"What is 9 + 2?\",\r\n            \"options\": [\r\n                { \"text\": \"3\", \"isCorrect\": false },\r\n                { \"text\": \"4\", \"isCorrect\": true },\r\n                { \"text\": \"5\", \"isCorrect\": false },\r\n                { \"text\": \"6\", \"isCorrect\": false }\r\n            ]\r\n        } ,\r\n                 {\r\n            \"text\": \"What is 9 + 2?\",\r\n            \"options\": [\r\n                { \"text\": \"3\", \"isCorrect\": false },\r\n                { \"text\": \"4\", \"isCorrect\": true },\r\n                { \"text\": \"5\", \"isCorrect\": false },\r\n                { \"text\": \"6\", \"isCorrect\": false }\r\n            ]\r\n        }\r\n        // More questions...\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/exam",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"exam"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_exam",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1MzY0YmQwMjFlM2U5YzA4Y2M1YmUiLCJlbWFpbCI6ImFAbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDYyMjA2NjgsImV4cCI6MTc0NjI1MzA2OH0.VkGac0f8rTBh3qWgbR6yAdGBtj6d76Uvd-qIr3VAWJU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Updated Math Exam\",\r\n    \"description\": \"Advanced algebra test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/exam/681540b50ab34ca235cbfbf2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"exam",
+								"681540b50ab34ca235cbfbf2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_Exam",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1MzY0YmQwMjFlM2U5YzA4Y2M1YmUiLCJlbWFpbCI6ImFAbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDYyMjA2NjgsImV4cCI6MTc0NjI1MzA2OH0.VkGac0f8rTBh3qWgbR6yAdGBtj6d76Uvd-qIr3VAWJU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/exam/681541ed7003c45e6aca5262",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"exam",
+								"681541ed7003c45e6aca5262"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View_all_Exams",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1ZDA1M2FiOTZlNWZjNzI1NjE3YjAiLCJlbWFpbCI6ImFkZWxAbXBsZS5jb20iLCJyb2xlIjoiVXNlciIsImlhdCI6MTc0NjI2MDA4MSwiZXhwIjoxNzQ2MjkyNDgxfQ.uhcAM2x1Wr4GEkvvZsSVISmphCgzseJXZjnO_ITGz10",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/exam",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"exam"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1MzY0YmQwMjFlM2U5YzA4Y2M1YmUiLCJlbWFpbCI6ImFAbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDYyMjA2NjgsImV4cCI6MTc0NjI1MzA2OH0.VkGac0f8rTBh3qWgbR6yAdGBtj6d76Uvd-qIr3VAWJU",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TAke_one_Exam",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1ZDA1M2FiOTZlNWZjNzI1NjE3YjAiLCJlbWFpbCI6ImFkZWxAbXBsZS5jb20iLCJyb2xlIjoiVXNlciIsImlhdCI6MTc0NjI2MDA4MSwiZXhwIjoxNzQ2MjkyNDgxfQ.uhcAM2x1Wr4GEkvvZsSVISmphCgzseJXZjnO_ITGz10",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/exam/681549f14c9dbe349c3704e6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"exam",
+								"681549f14c9dbe349c3704e6"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1ZDA1M2FiOTZlNWZjNzI1NjE3YjAiLCJlbWFpbCI6ImFkZWxAbXBsZS5jb20iLCJyb2xlIjoiVXNlciIsImlhdCI6MTc0NjI2MDA4MSwiZXhwIjoxNzQ2MjkyNDgxfQ.uhcAM2x1Wr4GEkvvZsSVISmphCgzseJXZjnO_ITGz10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit_Exam",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1ZDA1M2FiOTZlNWZjNzI1NjE3YjAiLCJlbWFpbCI6ImFkZWxAbXBsZS5jb20iLCJyb2xlIjoiVXNlciIsImlhdCI6MTc0NjI2MDA4MSwiZXhwIjoxNzQ2MjkyNDgxfQ.uhcAM2x1Wr4GEkvvZsSVISmphCgzseJXZjnO_ITGz10",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"answers\": [1, 0, 2] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/exam/681538af71c128fc77b96cb8?",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"exam",
+								"681538af71c128fc77b96cb8"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Question",
+			"item": [
+				{
+					"name": "create the Question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1MzY0YmQwMjFlM2U5YzA4Y2M1YmUiLCJlbWFpbCI6ImFAbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDYyMjA2NjgsImV4cCI6MTc0NjI1MzA2OH0.VkGac0f8rTBh3qWgbR6yAdGBtj6d76Uvd-qIr3VAWJU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"What is 3 + 3?\",\r\n    \"options\": [\r\n        { \"text\": \"5\", \"isCorrect\": false },\r\n        { \"text\": \"6\", \"isCorrect\": true },\r\n        { \"text\": \"7\", \"isCorrect\": false },\r\n        { \"text\": \"8\", \"isCorrect\": false }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/exam/681549f14c9dbe349c3704e6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"exam",
+								"681549f14c9dbe349c3704e6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_question",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1MzY0YmQwMjFlM2U5YzA4Y2M1YmUiLCJlbWFpbCI6ImFAbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDYyMjA2NjgsImV4cCI6MTc0NjI1MzA2OH0.VkGac0f8rTBh3qWgbR6yAdGBtj6d76Uvd-qIr3VAWJU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"What is 9+ 3?\",\r\n    \"options\": [\r\n        { \"text\": \"5\", \"isCorrect\": false },\r\n        { \"text\": \"6\", \"isCorrect\": true },\r\n        { \"text\": \"7\", \"isCorrect\": false },\r\n        { \"text\": \"8\", \"isCorrect\": false }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/exam/question/681549f14c9dbe349c3704e8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"exam",
+								"question",
+								"681549f14c9dbe349c3704e8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_question",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1MzY0YmQwMjFlM2U5YzA4Y2M1YmUiLCJlbWFpbCI6ImFAbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDYyMjA2NjgsImV4cCI6MTc0NjI1MzA2OH0.VkGac0f8rTBh3qWgbR6yAdGBtj6d76Uvd-qIr3VAWJU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Updated Math Exam\",\r\n    \"description\": \"Advanced algebra test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/exam/question/681549f14c9dbe349c3704e8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"exam",
+								"question",
+								"681549f14c9dbe349c3704e8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Result",
+			"item": [
+				{
+					"name": "Student_result_in_Exam",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE1ZDA1M2FiOTZlNWZjNzI1NjE3YjAiLCJlbWFpbCI6ImFkZWxAbXBsZS5jb20iLCJyb2xlIjoiVXNlciIsImlhdCI6MTc0NjI2MDA4MSwiZXhwIjoxNzQ2MjkyNDgxfQ.uhcAM2x1Wr4GEkvvZsSVISmphCgzseJXZjnO_ITGz10",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/result",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"result"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin_get_all_results_of_exam",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
