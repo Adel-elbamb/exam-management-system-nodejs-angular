@@ -1,0 +1,13 @@
+<h2>Student Results</h2>
+<ul>
+  <li *ngFor="let result of studentResults">
+    <p>Student: {{ result.studentName }}</p>
+    <p>Exam: {{ result.examName }}</p>
+    <p>Score: {{ result.score }} / {{ result.totalQuestions }}</p>
+    <p>Percentage: {{ result.percentage }}%</p>
+    <p>Status: {{ result.status }}</p>
+  </li>
+</ul>
+ <div *ngIf="studentResults.length === 0">
+    <p>No student results available</p>
+</div>

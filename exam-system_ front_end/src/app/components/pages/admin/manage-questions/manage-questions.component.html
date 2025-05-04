@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Manage Questions</h1>
+
+  <button (click)="addQuestion()">Add Question</button>
+
+  <div *ngFor="let question of questions; let i = index">
+    <p>{{ question.text }}</p>
+    <button (click)="editQuestion(i)">Edit</button>
+    <button (click)="deleteQuestion(i)">Delete</button>
+    <div *ngFor="let option of question.options">
+      <p>{{option.text}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="showModal">
+    <h2>{{ editingIndex === -1 ? 'Add Question' : 'Edit Question' }}</h2>
+    <label>Question Text:</label>
+    <input [(ngModel)]="newQuestion.text" />
+
+    <div *ngFor="let option of newQuestion.options; let optionIndex = index">
+      <label>Option {{ optionIndex + 1 }}:</label>
+      <input [(ngModel)]="option.text" />
+      <label>Is Correct:</label>
+      <input type="checkbox" [(ngModel)]="option.isCorrect" />
+    </div>
+    <button (click)="addOption()">Add Option</button>
+
+    <button (click)="saveQuestion()">Save</button>
+    <button (click)="cancel()">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="login-container d-flex align-items-center justify-content-center">
+  <div class="login-card p-4 shadow bg-white rounded-4">
+    <h3 class="text-center mb-4 text-primary fw-bold">Create Your Account</h3>
+
+    <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm" novalidate>
+
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label fw-semibold">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          placeholder="Enter your username"
+          [(ngModel)]="registerData.username"
+          required
+          minlength="4"
+          #usernameInput="ngModel"
+          [ngClass]="{ 'is-invalid': usernameInput.invalid && (usernameInput.dirty || usernameInput.touched) }"
+        />
+        <div *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)" class="invalid-feedback">
+          <div *ngIf="usernameInput.errors?.['required']">Username is required.</div>
+          <div *ngIf="usernameInput.errors?.['minlength']">Minimum 4 characters.</div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          placeholder="Enter your email"
+          [(ngModel)]="registerData.email"
+          required
+          #emailInput="ngModel"
+          [ngClass]="{ 'is-invalid': emailInput.invalid && (emailInput.dirty || emailInput.touched) }"
+        />
+        <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="invalid-feedback">
+          <div *ngIf="emailInput.errors?.['required']">Email is required.</div>
+          <div *ngIf="emailInput.errors?.['email']">Enter a valid email address.</div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          placeholder="Enter your password"
+          [(ngModel)]="registerData.password"
+          required
+          minlength="6"
+          #passwordInput="ngModel"
+          [ngClass]="{ 'is-invalid': passwordInput.invalid && (passwordInput.dirty || passwordInput.touched) }"
+        />
+        <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="invalid-feedback">
+          <div *ngIf="passwordInput.errors?.['required']">Password is required.</div>
+          <div *ngIf="passwordInput.errors?.['minlength']">Minimum 6 characters.</div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="d-grid mb-3">
+        <button type="submit" class="btn btn-primary btn-lg" [disabled]="registerForm.invalid || isLoading">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          Register
+        </button>
+      </div>
+
+      <!-- Feedback -->
+      <div *ngIf="errorMessage" class="alert alert-danger text-center small mb-3">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="alert alert-success text-center small mb-3">{{ successMessage }}</div>
+
+      <!-- Link to Login -->
+      <div class="text-center small">
+        Already have an account?
+        <a routerLink="/login" class="text-decoration-none text-primary fw-semibold">Login</a>
+      </div>
+
+    </form>
+  </div>
+</div>

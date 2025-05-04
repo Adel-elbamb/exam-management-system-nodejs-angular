@@ -1,0 +1,32 @@
+<div class="connect-us-section container py-5 d-flex flex-lg-row flex-column align-items-center gap-5">
+  
+  <div class="image-side text-center w-100"></div>
+
+  <div class="connect-us-form w-100">
+    <h2 class="mb-3 text-primary fw-bold">Connect With Us</h2>
+    <p class="mb-4 text-muted">We're here to help. Feel free to get in touch using the form below.</p>
+
+    <form (ngSubmit)="sendMessage()" *ngIf="!submitted">
+      <div class="mb-3">
+        <label for="name" class="form-label">Your Name</label>
+        <input [(ngModel)]="contact.name" name="name" type="text" class="form-control" id="name" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Your Email</label>
+        <input [(ngModel)]="contact.email" name="email" type="email" class="form-control" id="email" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea [(ngModel)]="contact.message" name="message" class="form-control" id="message" rows="5" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary px-4 py-2">Send Message</button>
+    </form>
+
+    <div *ngIf="submitted" class="alert alert-success mt-4">
+      Thank you for reaching out! We'll get back to you soon.
+    </div>
+  </div>
+</div>

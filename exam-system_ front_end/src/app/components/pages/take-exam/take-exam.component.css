@@ -1,0 +1,22 @@
+.exam-wrapper {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 1rem;
+}
+
+.exam-form {
+  background-color: #ffffff;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.form-check {
+  margin-bottom: 10px;
+}
+
+button[type="submit"] {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
