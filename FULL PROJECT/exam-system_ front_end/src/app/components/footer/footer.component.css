@@ -1,0 +1,28 @@
+.custom-footer {
+  background: linear-gradient(to right, #000000, #181852);
+  color: #fff;
+  font-size: 0.95rem;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.custom-footer a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.custom-footer a:hover {
+  color: #ffc107;
+  text-decoration: underline;
+}
+
+.custom-footer .social-icons i {
+  font-size: 1.4rem;
+  color: #ccc;
+  transition: 0.3s;
+}
+
+.custom-footer .social-icons i:hover {
+  color: #ffc107;
+  transform: scale(1.2);
+}

@@ -1,0 +1,23 @@
+<form #form="ngForm" (ngSubmit)="saveQuestion(form)">
+ 
+  <label>Question Text:</label>
+  <input [(ngModel)]="newQuestion.text" name="text" placeholder="Enter question text" required />
+
+
+  <div *ngFor="let option of newQuestion.options; let optionIndex = index">
+    <label>Option {{ optionIndex + 1 }}:</label>
+    <input [(ngModel)]="option.text" name="option{{optionIndex}}" placeholder="Enter option text" required />
+    <label>Is Correct:</label>
+    <input type="checkbox" [(ngModel)]="option.isCorrect" name="isCorrect{{optionIndex}}" />
+    <button type="button" (click)="deleteOption(optionIndex)">Delete Option</button>
+  </div>
+
+ 
+  <button type="button" (click)="addOption()">Add Option</button>
+
+
+  <button type="submit">Save</button>
+
+
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>

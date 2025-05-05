@@ -1,0 +1,56 @@
+<div class="student-results-container bg-light p-4 rounded shadow-sm mt-5">
+    <h2 class="text-center text-primary mb-4 fw-bold">
+      📊 Student Results
+    </h2>
+  
+
+    <div class="text-end mb-3">
+      <select class="form-select w-auto d-inline-block" [(ngModel)]="selectedFilter">
+        <option value="">All</option>
+        <option value="Passed">Passed</option>
+        <option value="Failed">Failed</option>
+      </select>
+    </div>
+  
+    
+    <div *ngIf="filteredResults.length > 0; else noResults">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle shadow-sm bg-white rounded overflow-hidden">
+          <thead class="table-primary text-center">
+            <tr>
+              <th> Student</th>
+              <th>📘 Exam</th>
+              <th>✅ Score</th>
+              <th>📈 Percentage</th>
+              <th>🎯 Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let result of filteredResults" class="text-center">
+              <td>{{ result.studentName }}</td>
+              <td>{{ result.examName }}</td>
+              <td>{{ result.score }} / {{ result.totalQuestions }}</td>
+              <td>{{ result.percentage }}%</td>
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'bg-success': result.status === 'Passed',
+                    'bg-danger': result.status === 'Failed'
+                  }">
+                  {{ result.status }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <ng-template #noResults>
+      <p class="text-center text-muted mt-5 fs-5">
+         No student results available.
+      </p>
+    </ng-template>
+  </div>
+  
