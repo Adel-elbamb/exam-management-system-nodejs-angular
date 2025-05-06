@@ -24,18 +24,18 @@ export const routes: Routes = [
   // Results 
   { path: 'view-results', component: ViewStudentResultsComponent },
 
-  
+  // Admin Routes with Guards
   {
     path: 'admin/manage-questions',
     component: ManageQuestionsComponent,
-    canActivate: [AdminGuard]
+    canActivate: [AdminGuard], // Ensure only admins can access this route
   },
   {
     path: 'admin/view-student-results',
     component: ViewStudentResultsComponent,
-    canActivate: [AdminGuard]
+    canActivate: [AdminGuard], // Ensure only admins can access this route
   },
 
-  // Fallback
+  // Fallback Route
   { path: '**', redirectTo: '' },
 ];

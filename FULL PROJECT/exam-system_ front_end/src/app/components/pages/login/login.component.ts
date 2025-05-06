@@ -14,7 +14,7 @@ import { jwtDecode } from 'jwt-decode';
   imports: [FormsModule, CommonModule, RouterLink]
 })
 export class LoginComponent {
-  loginData = { email: '', password: '' };  // بيانات تسجيل الدخول
+  loginData = { email: '', password: '' };  
   isLoading = false;
   errorMessage = '';
   successMessage = '';
@@ -27,7 +27,7 @@ export class LoginComponent {
       this.errorMessage = '';
       this.successMessage = '';
   
-      this.http.post<any>('http://localhost:3000/auth/login', this.loginData)  // إرسال بيانات تسجيل الدخول إلى الـ Backend
+      this.http.post<any>('http://localhost:3000/auth/login', this.loginData)
         .pipe(
           catchError((error) => {
             this.errorMessage = error.error?.message || 'Login failed. Please check your credentials.';
@@ -38,27 +38,40 @@ export class LoginComponent {
           })
         )
         .subscribe((response) => {
-          if (response?.token) {  // إذا تم استلام التوكن
-            localStorage.setItem('token', response.token);  // تخزين التوكن في localStorage
-
-            const decoded: any = jwtDecode(response.token);  // فك تشفير التوكن للحصول على بيانات المستخدم
-            localStorage.setItem('userRole', decoded.role);  // تخزين دور المستخدم
-            localStorage.setItem('userId', decoded._id);  // تخزين ID المستخدم
-
-            this.successMessage = 'Login successful! Redirecting...';  // رسالة نجاح تسجيل الدخول
-
+          if (response?.token) {  
+            
+            localStorage.setItem('token', response.token);
+  
+            const decoded: any = jwtDecode(response.token);  
+            localStorage.setItem('userRole', decoded.role);  
+            localStorage.setItem('userId', decoded._id);  
+  
+            this.successMessage = 'Login successful! Redirecting...';
+  
+            
             setTimeout(() => {
               if (decoded.role === 'Admin') {
-                this.router.navigate(['/admin/manage-questions']);  // إذا كان المستخدم Admin يتم توجيههم إلى لوحة الإدارة
+                this.router.navigate(['/admin/manage-questions']);
               } else {
-                this.router.navigate(['/exam-list']);  // إذا كان المستخدم Student يتم توجيههم إلى صفحة الامتحانات
+                this.router.navigate(['/exam-list']);
               }
-            }, 1500);  // التوجيه بعد 1.5 ثانية
+            }, 1500);
           }
         });
-    } else {
-      this.errorMessage = 'Please ensure all required fields are filled.';
-      Object.values(form.controls).forEach(control => control.markAsTouched());  // التأكد من أن جميع الحقول تم تعبئتها
+    }
+  }
+  
+  ngOnInit() {
+    
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      // يمكنك التحقق من صلاحية التوكن هنا إذا أردت
+      if (decoded.exp * 1000 < Date.now()) {
+        // إذا انتهت صلاحية التوكن، قم بإزالته
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+      }
     }
   }
 }

@@ -8,7 +8,7 @@ import { Exam } from '../../../models/exam.model';
 @Component({
   selector: 'app-take-exam',
   standalone: true,
-  imports: [CommonModule, FormsModule], // <-- الحل هنا
+  imports: [CommonModule, FormsModule], 
   templateUrl: './take-exam.component.html',
   styleUrls: ['./take-exam.component.css']
 })

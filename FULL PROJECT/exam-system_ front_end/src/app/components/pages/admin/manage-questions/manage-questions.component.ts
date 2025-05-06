@@ -1,86 +1,86 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { QuestionService } from '../../../../services/question.service';
+import { catchError, finalize, of } from 'rxjs';
 
 @Component({
   selector: 'app-manage-questions',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  providers: [QuestionService],
   templateUrl: './manage-questions.component.html',
   styleUrls: ['./manage-questions.component.css']
 })
-export class ManageQuestionsComponent {
+export class ManageQuestionsComponent implements OnInit {
+  examId = ' examId'; 
+  newQuestion = { text: '', options: [{ text: '', isCorrect: false }, { text: '', isCorrect: false }, { text: '', isCorrect: false }, { text: '', isCorrect: false }] };
   questions: any[] = [];
-  showModal: boolean = false;
-  newQuestion: any = { text: '', options: [] };
-  successMessage: string = '';
-  errorMessage: string = '';
-  editingIndex: number = -1;
-  examId: string = 'someExamId';  
+  errorMessage = '';
+  successMessage = '';
 
-  constructor(private questionService: QuestionService) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  addQuestion() {
-    this.showModal = true;
-    this.editingIndex = -1;  
-    this.newQuestion = { text: '', options: [] };  
+  ngOnInit(): void {
+    this.getQuestions();
   }
 
-  saveQuestion(form: any) {
-    if (this.editingIndex === -1) {
-      this.questionService.addQuestion(this.examId, this.newQuestion).subscribe(
-        (response: any) => {
-          this.successMessage = 'Question added successfully!';
-          this.questions.push(response.question);
-        },
-        (error: any) => {
-          this.errorMessage = 'Error adding question';
-        }
-      );
-    } else {
-      this.questionService.updateQuestion(this.newQuestion._id, this.newQuestion).subscribe(
-        (response: any) => {
-          this.successMessage = 'Question updated successfully!';
-          this.questions[this.editingIndex] = response.question;
-        },
-        (error: any) => {
-          this.errorMessage = 'Error updating question';
-        }
-      );
-    }
-  
-    this.showModal = false;
-    form.reset();
-  }
-  
-  editQuestion(index: number) {
-    this.editingIndex = index;
-    this.newQuestion = { ...this.questions[index] };  
-  }
-
-  deleteQuestion(index: number) {
-    this.questionService.deleteQuestion(this.questions[index]._id).subscribe(
-      (response: any) => {
-        this.questions.splice(index, 1);  
-        this.successMessage = 'Question deleted successfully!';
+  // جلب الأسئلة من الـ backend
+  getQuestions() {
+    this.http.get<any[]>(`http://localhost:3000/api/exam/${this.examId}/questions`).subscribe(
+      (response) => {
+        this.questions = response; 
       },
-      (error: any) => {
-        this.errorMessage = 'Error deleting question';
+      (error) => {
+        this.errorMessage = 'Error fetching questions.';
       }
     );
   }
 
+  // إضافة سؤال جديد
+  addQuestion(form: NgForm) {
+    if (form.valid) {
+      this.http.post<any>(`http://localhost:3000/api/exam/${this.examId}/question`, this.newQuestion).subscribe(
+        (response) => {
+          this.successMessage = 'Question added successfully!';
+          this.getQuestions();  
+          form.reset();
+        },
+        (error) => {
+          this.errorMessage = 'Error adding question.';
+        }
+      );
+    }
+  }
+
+  // حذف سؤال
+  deleteQuestion(questionId: string) {
+    this.http.delete<any>(`http://localhost:3000/api/exam/${this.examId}/question/${questionId}`).subscribe(
+      (response) => {
+        this.successMessage = 'Question deleted successfully!';
+        this.getQuestions();  // إعادة تحميل الأسئلة بعد الحذف
+      },
+      (error) => {
+        this.errorMessage = 'Error deleting question.';
+      }
+    );
+  }
+
+  // تحديث سؤال
+  updateQuestion(questionId: string) {
+    this.http.put<any>(`http://localhost:3000/api/exam/${this.examId}/question/${questionId}`, this.newQuestion).subscribe(
+      (response) => {
+        this.successMessage = 'Question updated successfully!';
+        this.getQuestions();  
+      },
+      (error) => {
+        this.errorMessage = 'Error updating question.';
+      }
+    );
+  }
+
+  // إضافة خيار جديد
   addOption() {
-    this.newQuestion.options.push({ text: '', isCorrect: false });  // إضافة خيار جديد
-  }
-
-  deleteOption(index: number) {
-    this.newQuestion.options.splice(index, 1); 
-  }
-
-  cancel() {
-    this.showModal = false;  
+    this.newQuestion.options.push({ text: '', isCorrect: false });
   }
 }
